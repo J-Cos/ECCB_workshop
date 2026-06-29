@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Vibes: Responsible AI-Assisted Coding Checklist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #002110;
+            background: #ffffff;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Page Container ── */
+        .page {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 18mm 16mm 12mm 16mm;
+        }
+
+        /* ── Header ── */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #008945;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #008945;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 0.78rem;
+            color: #002110;
+            margin-top: 3px;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 44px;
+            border: 2px solid #008945;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #008945;
+            text-align: center;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        /* ── Section Headers ── */
+        .section-header {
+            background: #008945;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+
+        .section-number {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            border-radius: 3px;
+            padding: 0 5px;
+            margin-right: 6px;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        /* ── Principles Section ── */
+        .principles {
+            margin-bottom: 12px;
+        }
+
+        .principle-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 4px 0;
+            gap: 10px;
+        }
+
+        .principle-item + .principle-item {
+            border-top: 1px solid #f0ebe4;
+        }
+
+        .principle-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            background: #008945;
+            color: #ffffff;
+            border-radius: 50%;
+            font-size: 0.68rem;
+            font-weight: 800;
+            margin-top: 1px;
+        }
+
+        .principle-checkbox {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2.5px solid #008945;
+            border-radius: 3px;
+            margin-top: 2px;
+        }
+
+        .principle-content {
+            flex: 1;
+        }
+
+        .principle-name {
+            font-weight: 700;
+            color: #008945;
+            font-size: 0.82rem;
+        }
+
+        .principle-desc {
+            font-size: 0.75rem;
+            color: #002110;
+            opacity: 0.8;
+        }
+
+        /* ── Checklist Section ── */
+        .checklist {
+            margin-bottom: 10px;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px 16px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 3.5px 0;
+        }
+
+        .checklist-checkbox {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border: 2.5px solid #008945;
+            border-radius: 3px;
+            margin-top: 1px;
+        }
+
+        .checklist-text {
+            font-size: 0.73rem;
+            color: #002110;
+            line-height: 1.35;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 2px solid #DEC6A2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.62rem;
+            color: #002110;
+            opacity: 0.55;
+            font-weight: 500;
+        }
+
+        .footer-licence {
+            display: inline-block;
+            background: #DEC6A2;
+            color: #002110;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.58rem;
+            font-weight: 700;
+        }
+
+        /* ── Print Styles ── */
+        @media print {
+            html {
+                font-size: 13px;
+            }
+
+            body {
+                background: #ffffff;
+            }
+
+            .page {
+                padding: 10mm 12mm 8mm 12mm;
+                max-width: none;
+            }
+
+            .header {
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+            }
+
+            .checklist-checkbox,
+            .principle-checkbox {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                border-color: #008945 !important;
+            }
+
+            .principle-number,
+            .section-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background: #008945 !important;
+                color: #ffffff !important;
+            }
+
+            .footer-licence {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+
+        /* ── Screen enhancements (not printed) ── */
+        @media screen {
+            body {
+                background: #f5f3f0;
+                padding: 20px;
+            }
+
+            .page {
+                background: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 4px 24px rgba(0, 33, 16, 0.08);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="header-title">Good Vibes: Responsible AI-Assisted Coding Checklist</h1>
+                <p class="header-subtitle">ECCB 2026 Workshop — Earth Observation Workflows</p>
+            </div>
+            <div class="header-logo">ZSL<br>Institute of<br>Zoology</div>
+        </header>
+
+        <!-- Section 1: Six Principles -->
+        <div class="principles">
+            <div class="section-header">
+                <span class="section-number">1</span>The Six Principles of Responsible AI-Assisted Coding
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">1</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Treat AI as an intelligence</span>
+                    <span class="principle-desc"> — give it clear context, domain knowledge, and specific instructions</span>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">2</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Distrust</span>
+                    <span class="principle-desc"> — assume output is plausible but wrong until independently verified</span>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">3</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Verify</span>
+                    <span class="principle-desc"> — write unit tests, check edge cases, validate against known-answer cases</span>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">4</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Prioritize reporting & interpretation</span>
+                    <span class="principle-desc"> — understand every line; if you can't explain it, you don't understand your analysis</span>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">5</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Engineer adversity</span>
+                    <span class="principle-desc"> — deliberately try to break AI-generated code with bad inputs and edge cases</span>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-number">6</div>
+                <div class="principle-checkbox"></div>
+                <div class="principle-content">
+                    <span class="principle-name">Maximise transparency</span>
+                    <span class="principle-desc"> — document AI usage, log prompts, version code, capture metadata</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Verification Checklist -->
+        <div class="checklist">
+            <div class="section-header">
+                <span class="section-number">2</span>Before You Submit — Verification Checklist
+            </div>
+
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I can explain every line of AI-generated code in my own words</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have documented which parts of my code were AI-generated</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have tested with at least one known-answer case</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have captured reproducibility metadata (package versions, dataset versions, dates, parameters)</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have checked units, projections, and scale parameters</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have reviewed the code with a human colleague</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have verified band/variable names against official documentation</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have checked that results are scientifically plausible (order of magnitude, sign, range)</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have tested edge cases (empty regions, zero values, missing data, NaN)</div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">I have saved my AI conversation/prompts for reference</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span class="footer-text">Good Vibes Workshop — ECCB 2026 &nbsp;|&nbsp; AB, HFT, HH, JW &nbsp;|&nbsp; ZSL Institute of Zoology</span>
+            <span class="footer-licence">CC BY 4.0</span>
+        </footer>
+    </div>
+</body>
+</html>

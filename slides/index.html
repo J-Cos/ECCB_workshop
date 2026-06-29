@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Good Vibes — Responsible AI for Earth Observation | ECCB 2026</title>
+  <meta name="description" content="Workshop slides for responsible use of AI in large-scale, rapid Earth Observation workflows. ECCB 2026, Institute of Zoology, ZSL.">
+
+  <!-- Google Fonts — Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Reveal.js 5.x from cdnjs -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css" id="theme">
+
+  <style>
+    /* ── ZSL IoZ Brand Tokens ── */
+    :root {
+      --fun-green:    #008945;
+      --burnham:      #002110;
+      --sapling:      #DEC6A2;
+      --electric-lime: #C7F700;
+      --white:        #FFFFFF;
+      --glass-white:  rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.12);
+    }
+
+    /* ── Global Overrides ── */
+    .reveal-viewport {
+      background: var(--burnham);
+      background-image:
+        radial-gradient(ellipse at 20% 80%, rgba(0,137,69,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(199,247,0,0.08) 0%, transparent 50%);
+    }
+
+    .reveal {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 32px;
+      color: var(--white);
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: none;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .reveal h1 { font-size: 2.2em; }
+    .reveal h2 { font-size: 1.6em; }
+    .reveal h3 { font-size: 1.2em; color: var(--electric-lime); }
+
+    .reveal p, .reveal li {
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .reveal strong { color: var(--electric-lime); font-weight: 700; }
+    .reveal em { color: var(--sapling); font-style: normal; font-weight: 500; }
+
+    .reveal a { color: var(--electric-lime); text-decoration: underline; text-underline-offset: 3px; }
+
+    .reveal ul, .reveal ol {
+      text-align: left;
+      margin-left: 0.5em;
+    }
+
+    .reveal li {
+      margin-bottom: 0.4em;
+    }
+
+    .reveal code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: var(--glass-white);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+      font-size: 0.85em;
+      color: var(--electric-lime);
+    }
+
+    .reveal blockquote {
+      background: var(--glass-white);
+      border-left: 4px solid var(--fun-green);
+      border-radius: 0 8px 8px 0;
+      padding: 0.8em 1.2em;
+      font-style: italic;
+      color: var(--sapling);
+      width: 85%;
+      margin: 0.8em auto;
+    }
+
+    /* ── Slide section backgrounds ── */
+    .reveal .slides section[data-state="title-slide"] {
+      /* handled by inline styles */
+    }
+
+    /* ── Logo on every slide ── */
+    .reveal .slides .slide-logo {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      width: 90px;
+      height: auto;
+      opacity: 0.85;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* ── Section header slides ── */
+    .section-header {
+      background: linear-gradient(135deg, var(--fun-green) 0%, var(--burnham) 100%);
+      border-radius: 16px;
+      padding: 2em !important;
+    }
+
+    .section-header h2 {
+      font-size: 2em;
+      margin-bottom: 0.3em;
+    }
+
+    .section-header .section-subtitle {
+      color: var(--sapling);
+      font-size: 0.7em;
+      font-weight: 400;
+    }
+
+    /* ── Glassmorphism cards ── */
+    .glass-card {
+      background: var(--glass-white);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 1.2em 1.5em;
+      margin: 0.6em auto;
+      max-width: 90%;
+    }
+
+    /* ── Principle cards ── */
+    .principle-card {
+      background: linear-gradient(135deg, rgba(0,137,69,0.2) 0%, rgba(0,33,16,0.6) 100%);
+      border: 1px solid rgba(0,137,69,0.35);
+      border-radius: 14px;
+      padding: 1.4em 1.6em;
+      margin: 0.5em auto;
+      max-width: 88%;
+      text-align: left;
+    }
+
+    .principle-card .principle-number {
+      display: inline-block;
+      background: var(--fun-green);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 0.7em;
+      width: 2em;
+      height: 2em;
+      line-height: 2em;
+      text-align: center;
+      border-radius: 50%;
+      margin-right: 0.5em;
+      vertical-align: middle;
+    }
+
+    .principle-card .principle-title {
+      font-weight: 700;
+      font-size: 1.1em;
+      color: var(--electric-lime);
+      vertical-align: middle;
+    }
+
+    .principle-card p {
+      margin-top: 0.5em;
+      font-size: 0.78em;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    /* ── Emoji icon styling ── */
+    .emoji-icon {
+      font-size: 1.6em;
+      display: inline-block;
+      margin-right: 0.3em;
+      vertical-align: middle;
+    }
+
+    /* ── Timeline styling ── */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: 1em 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 5%;
+      right: 5%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--fun-green), var(--electric-lime));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 0.3em;
+    }
+
+    .timeline-item .dot {
+      width: 14px;
+      height: 14px;
+      background: var(--electric-lime);
+      border-radius: 50%;
+      margin: 12px auto 8px;
+      border: 2px solid var(--burnham);
+    }
+
+    .timeline-item .year {
+      font-size: 0.6em;
+      font-weight: 700;
+      color: var(--electric-lime);
+    }
+
+    .timeline-item .label {
+      font-size: 0.45em;
+      color: var(--sapling);
+      margin-top: 0.2em;
+      line-height: 1.3;
+    }
+
+    /* ── Metaphor spectrum ── */
+    .spectrum-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      margin: 1em auto;
+      max-width: 95%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+
+    .spectrum-item {
+      flex: 1;
+      padding: 0.8em 0.4em;
+      text-align: center;
+      font-size: 0.55em;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .spectrum-item:nth-child(1) { background: rgba(0,137,69,0.5); }
+    .spectrum-item:nth-child(2) { background: rgba(0,137,69,0.35); }
+    .spectrum-item:nth-child(3) { background: rgba(0,137,69,0.22); }
+    .spectrum-item:nth-child(4) { background: rgba(0,137,69,0.12); }
+
+    .spectrum-item .spectrum-emoji {
+      display: block;
+      font-size: 1.8em;
+      margin-bottom: 0.3em;
+    }
+
+    /* ── Checklist grid ── */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6em;
+      margin: 0.6em auto;
+      max-width: 95%;
+    }
+
+    .checklist-item {
+      background: var(--glass-white);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.7em 0.8em;
+      text-align: left;
+      font-size: 0.6em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .checklist-item .check-icon {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+
+    .checklist-item .check-text {
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .checklist-item .check-sub {
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85em;
+    }
+
+    /* ── Failure example cards ── */
+    .failure-card {
+      background: rgba(180,40,40,0.15);
+      border: 1px solid rgba(220,60,60,0.3);
+      border-radius: 10px;
+      padding: 0.8em 1em;
+      margin: 0.4em auto;
+      max-width: 90%;
+      text-align: left;
+      font-size: 0.72em;
+    }
+
+    .failure-card .failure-title {
+      color: #ff6b6b;
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+
+    /* ── Transition slide ── */
+    .transition-slide {
+      text-align: center;
+    }
+
+    .transition-slide h2 {
+      font-size: 1.5em;
+      color: var(--sapling);
+    }
+
+    .transition-slide .arrow {
+      font-size: 2em;
+      color: var(--electric-lime);
+      margin: 0.3em 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* ── Title slide special ── */
+    .title-content {
+      text-align: center;
+    }
+
+    .title-content h1 {
+      font-size: 2em;
+      background: linear-gradient(135deg, var(--white) 30%, var(--electric-lime) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.15em;
+    }
+
+    .title-content .subtitle {
+      font-size: 0.65em;
+      color: var(--sapling);
+      font-weight: 500;
+      margin-bottom: 0.6em;
+    }
+
+    .title-content .authors {
+      font-size: 0.5em;
+      color: rgba(255,255,255,0.8);
+      font-weight: 400;
+    }
+
+    .title-content .affiliation {
+      font-size: 0.4em;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      margin-top: 0.3em;
+    }
+
+    .title-content .conference-badge {
+      display: inline-block;
+      background: var(--fun-green);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.45em;
+      padding: 0.3em 1em;
+      border-radius: 20px;
+      margin-top: 1em;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Vibe-coding spectrum ── */
+    .vibe-spectrum {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1em auto;
+      max-width: 92%;
+      position: relative;
+    }
+
+    .vibe-spectrum::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 8%;
+      right: 8%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--fun-green) 0%, var(--electric-lime) 50%, #ff6b6b 100%);
+      border-radius: 3px;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+
+    .vibe-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      font-size: 0.5em;
+      font-weight: 600;
+    }
+
+    .vibe-label .vibe-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin: 0 auto 0.4em;
+      border: 2px solid var(--white);
+    }
+
+    /* ── Uses cards ── */
+    .uses-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5em;
+      margin: 0.5em auto;
+      max-width: 90%;
+    }
+
+    .use-card {
+      background: var(--glass-white);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.7em 1em;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+    }
+
+    .use-card .use-emoji {
+      font-size: 1.4em;
+      flex-shrink: 0;
+    }
+
+    .use-card .use-text {
+      font-size: 0.65em;
+    }
+
+    .use-card .use-text strong {
+      display: block;
+      font-size: 1.1em;
+      margin-bottom: 0.15em;
+    }
+
+    /* ── Responsive adjustments ── */
+    @media (max-width: 900px) {
+      .reveal { font-size: 24px; }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .spectrum-bar { flex-direction: column; }
+      .timeline { flex-direction: column; align-items: center; }
+      .timeline::before { display: none; }
+    }
+
+    /* ── Speaker notes styling ── */
+    .reveal .speaker-notes {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── Slide number ── */
+    .reveal .slide-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      background: transparent;
+    }
+
+    /* ── Progress bar ── */
+    .reveal .progress {
+      height: 4px;
+      color: var(--fun-green);
+    }
+
+    .reveal .progress span {
+      background: linear-gradient(90deg, var(--fun-green), var(--electric-lime));
+    }
+
+    /* ── Controls ── */
+    .reveal .controls {
+      color: var(--fun-green);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ════════════════════════════════════════════════════════
+           TITLE SLIDE
+           ════════════════════════════════════════════════════════ -->
+      <section data-state="title-slide" data-background="linear-gradient(160deg, #002110 0%, #004d25 50%, #002110 100%)">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="title-content">
+          <h1>Good Vibes</h1>
+          <p class="subtitle">Responsible use of AI for large-scale,<br>rapid Earth Observation workflows</p>
+          <p class="authors">AB &nbsp;·&nbsp; HFT &nbsp;·&nbsp; HH &nbsp;·&nbsp; JW</p>
+          <p class="affiliation">Institute of Zoology, Zoological Society of London</p>
+          <div class="conference-badge">ECCB 2026</div>
+        </div>
+        <aside class="notes">
+          Welcome everyone to 'Good Vibes'. This workshop is about using AI responsibly — specifically for Earth Observation coding workflows. We'll cover what AI is, why it matters for conservation science, and six principles for working with it safely. Then we'll get hands-on.
+        </aside>
+      </section>
+
+
+      <!-- ════════════════════════════════════════════════════════
+           SECTION 1: WHAT IS AI
+           ════════════════════════════════════════════════════════ -->
+
+      <!-- S1-1: Section header -->
+      <section class="section-header" data-background="linear-gradient(135deg, #008945 0%, #002110 100%)">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>🤖 What is AI?</h2>
+        <p class="section-subtitle">…and why should you care?</p>
+        <aside class="notes">
+          Let's start with the basics. We're going to take about 5 minutes to frame what AI is, how we should think about it, and what it can do for us as researchers. This sets the stage for the principles and the practical work later.
+        </aside>
+      </section>
+
+      <!-- S1-2: The ChatGPT Moment -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>The ChatGPT Moment</h2>
+        <h3>An explosion of capability since Nov 2022</h3>
+
+        <div class="timeline" style="margin-top: 1.2em;">
+          <div class="timeline-item fragment fade-up">
+            <div class="year">Nov 2022</div>
+            <div class="dot"></div>
+            <div class="label">ChatGPT launches<br>→ 100M users in 2 months</div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="year">2023</div>
+            <div class="dot"></div>
+            <div class="label">GPT-4, Bard, Claude<br>Multi-modal capabilities</div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="year">2024</div>
+            <div class="dot"></div>
+            <div class="label">Reasoning models<br>Agentic AI emerges</div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="year">2025</div>
+            <div class="dot"></div>
+            <div class="label">AI coding agents<br>Science-specific models</div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="year">2026</div>
+            <div class="dot"></div>
+            <div class="label">You are here 📍<br>AI in conservation workflows</div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          ChatGPT launched in November 2022 and reached 100 million users in just two months — the fastest adoption of any technology in history. Since then, the pace has been extraordinary. We've gone from novelty chatbots to multi-modal reasoning systems that can write code, analyse data, and even operate autonomously. The point isn't to hype AI — it's to recognise that this is a genuine paradigm shift, and as scientists we need to engage with it thoughtfully.
+        </aside>
+      </section>
+
+      <!-- S1-3: How We Think About AI — The Metaphor Spectrum -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>How We Think About AI</h2>
+        <h3>The metaphor spectrum</h3>
+
+        <div class="spectrum-bar" style="margin-top: 0.8em;">
+          <div class="spectrum-item fragment fade-up">
+            <span class="spectrum-emoji">🧑‍🤝‍🧑</span>
+            Colleague
+          </div>
+          <div class="spectrum-item fragment fade-up">
+            <span class="spectrum-emoji">🤝</span>
+            Peer
+          </div>
+          <div class="spectrum-item fragment fade-up">
+            <span class="spectrum-emoji">🔧</span>
+            Tool
+          </div>
+          <div class="spectrum-item fragment fade-up">
+            <span class="spectrum-emoji">🔍</span>
+            Search Engine
+          </div>
+        </div>
+
+        <div class="glass-card fragment fade-up" style="margin-top: 0.8em;">
+          <p style="font-size: 0.7em; text-align: center; margin: 0;">
+            ⚠️ <strong>Important:</strong> AI is <em>none of these perfectly</em>.<br>
+            It reasons — but not like a human. It retrieves — but not like a database.<br>
+            How you think about it shapes how you use it.
+          </p>
+        </div>
+
+        <aside class="notes">
+          People tend to reach for familiar metaphors when thinking about AI. Some treat it like a colleague — expecting judgement and accountability. Others treat it like a search engine — expecting it to just look things up. The truth is it's none of these perfectly. It can reason, but it also hallucinates. It can retrieve information, but it can also fabricate it. The metaphor you carry into your interaction fundamentally shapes how you use it — and how likely you are to be caught out by its failures.
+        </aside>
+      </section>
+
+      <!-- S1-4: Use 1 — Reviewing & Conceptualisation -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>📚 Use 1: Reviewing &amp; Conceptualisation</h2>
+
+        <div class="uses-grid">
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">🔬</span>
+            <div class="use-text">
+              <strong>Literature Review</strong>
+              Synthesise papers, identify gaps, find connections across disciplines
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">💡</span>
+            <div class="use-text">
+              <strong>Brainstorming</strong>
+              Generate hypotheses, explore alternative framings, challenge assumptions
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">🧪</span>
+            <div class="use-text">
+              <strong>Hypothesis Generation</strong>
+              Identify testable predictions from complex datasets and theory
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          The first big use case: conceptual work. AI is genuinely useful for literature review — not as a replacement for reading papers, but for synthesising across large bodies of work, spotting gaps, and helping you think across disciplines. It's also a powerful brainstorming partner. You can bounce ideas off it, ask it to challenge your assumptions, or explore alternative framings of a problem. Just remember: it can generate plausible-sounding but wrong hypotheses, so always verify.
+        </aside>
+      </section>
+
+      <!-- S1-5: Use 2 — Maths & Reasoning -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>🧮 Use 2: Maths &amp; Reasoning</h2>
+
+        <div class="uses-grid">
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">📊</span>
+            <div class="use-text">
+              <strong>Statistical Analysis</strong>
+              Model selection, power calculations, interpreting complex outputs
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">📈</span>
+            <div class="use-text">
+              <strong>Data Interpretation</strong>
+              Explaining results, identifying patterns, suggesting visualisations
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">🔢</span>
+            <div class="use-text">
+              <strong>Complex Calculations</strong>
+              Unit conversions, spatial statistics, remote sensing indices
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          The second use case: quantitative reasoning. Modern LLMs are surprisingly capable at mathematics — model selection advice, interpreting statistical outputs, even working through complex derivations. For Earth Observation, think spectral index calculations, spatial statistics, or power analyses for your study design. The caveat: always double-check the maths. AI can make subtle errors that look entirely plausible.
+        </aside>
+      </section>
+
+      <!-- S1-6: Use 3 — Coding -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>💻 Use 3: Coding</h2>
+        <h3>This is what we'll focus on today</h3>
+
+        <div class="uses-grid">
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">✍️</span>
+            <div class="use-text">
+              <strong>Writing Code</strong>
+              Generate scripts from natural language descriptions of your analysis
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">🐛</span>
+            <div class="use-text">
+              <strong>Debugging</strong>
+              Identify bugs, explain errors, suggest fixes — often faster than Stack Overflow
+            </div>
+          </div>
+          <div class="use-card fragment fade-right">
+            <span class="use-emoji">♻️</span>
+            <div class="use-text">
+              <strong>Refactoring</strong>
+              Improve code structure, add documentation, optimise performance
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          And here we get to today's focus: coding. AI can write code from scratch based on your descriptions, debug existing code by explaining errors and suggesting fixes, and refactor messy scripts into clean, documented, well-structured code. For many researchers, this is transformative — you don't need to be a software engineer to write production-quality analysis pipelines. But with that power comes responsibility, which is exactly what the rest of this talk is about.
+        </aside>
+      </section>
+
+      <!-- S1-7: What is Vibe Coding? -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>🎵 What is "Vibe Coding"?</h2>
+
+        <blockquote class="fragment fade-up" style="font-size: 0.7em;">
+          "There's a new kind of coding I call <strong>vibe coding</strong>, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+          <br><span style="font-size: 0.85em; color: rgba(255,255,255,0.6);">— Andrej Karpathy, Feb 2025</span>
+        </blockquote>
+
+        <div class="fragment fade-up" style="margin-top: 0.8em;">
+          <p style="font-size: 0.7em; text-align: center;">The spectrum of AI-assisted coding:</p>
+          <div class="vibe-spectrum">
+            <div class="vibe-label">
+              <div class="vibe-dot" style="background: var(--fun-green);"></div>
+              Fully manual
+            </div>
+            <div class="vibe-label">
+              <div class="vibe-dot" style="background: #4db878;"></div>
+              AI-assisted
+            </div>
+            <div class="vibe-label">
+              <div class="vibe-dot" style="background: var(--electric-lime);"></div>
+              AI-led
+            </div>
+            <div class="vibe-label">
+              <div class="vibe-dot" style="background: #ff6b6b;"></div>
+              Fully AI-generated
+            </div>
+          </div>
+        </div>
+
+        <p class="fragment fade-up" style="font-size: 0.62em; text-align: center; color: var(--sapling); margin-top: 0.6em;">
+          For <em>scientific code</em>, we need to stay in the responsible middle of this spectrum.
+        </p>
+
+        <aside class="notes">
+          Andrej Karpathy — one of the founders of OpenAI and former head of AI at Tesla — coined the term 'vibe coding' in early 2025. It describes the experience of describing what you want in natural language and letting AI write all the code. At one extreme, you write everything yourself. At the other, you let AI do everything and don't even read the output. For apps and prototypes, maybe that's fine. But for scientific code — where policy decisions depend on correct analysis — we need to be somewhere in the responsible middle. That's what today is about.
+        </aside>
+      </section>
+
+      <!-- S1-8: Transition to Six Principles -->
+      <section class="transition-slide" data-background="linear-gradient(135deg, #002110 0%, #004d25 50%, #002110 100%)">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <p style="font-size: 1em; color: var(--sapling);">But how do we do this</p>
+        <h2 style="color: var(--electric-lime); font-size: 2.2em;">responsibly?</h2>
+        <div class="arrow">↓</div>
+        <p style="font-size: 0.7em; color: rgba(255,255,255,0.6);">Six Principles for Working with AI</p>
+        <aside class="notes">
+          So we've seen what AI can do — literature review, maths, and especially coding. But the critical question is: how do we use these capabilities responsibly? How do we avoid publishing results based on buggy AI-generated code? That brings us to our six principles.
+        </aside>
+      </section>
+
+
+      <!-- ════════════════════════════════════════════════════════
+           SECTION 2: SIX PRINCIPLES
+           ════════════════════════════════════════════════════════ -->
+
+      <!-- S2-1: Section header -->
+      <section class="section-header" data-background="linear-gradient(135deg, #008945 0%, #002110 100%)">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>📋 Six Principles</h2>
+        <p class="section-subtitle">for Responsible AI-Assisted Coding</p>
+        <aside class="notes">
+          This is the core of today's framing talk. Six principles that we think every researcher should follow when using AI to write code. These aren't theoretical — they come from our own experience of making mistakes and learning from them.
+        </aside>
+      </section>
+
+      <!-- S2-2: Principle 1 — Treat as an Intelligence -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">1</span>
+          <span class="principle-title">🧠 Treat It as an Intelligence</span>
+          <p>It reasons. Give it context, domain knowledge, and specifics.</p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.6em;">
+          <li class="fragment fade-up"><strong>Provide domain context</strong> — "I'm analysing Sentinel-2 imagery for land cover classification in tropical forests"</li>
+          <li class="fragment fade-up"><strong>Be specific</strong> — "Use the SCL band to mask clouds, not QA60" rather than "remove clouds"</li>
+          <li class="fragment fade-up"><strong>Share your constraints</strong> — memory limits, time series length, study area extent</li>
+          <li class="fragment fade-up"><strong>Don't treat it like a search bar</strong> — it can reason through multi-step problems if you frame them well</li>
+        </ul>
+
+        <aside class="notes">
+          Principle 1: treat AI as an intelligence, not a search engine. It can reason — but only if you give it the right context. Tell it what satellite you're using, what region, what time period, what your scientific question is. The more specific you are, the better the output. Don't just say 'remove clouds' — tell it which cloud masking band to use and why. Think of it as briefing a capable but uninformed colleague.
+        </aside>
+      </section>
+
+      <!-- S2-3: Principle 2 — Distrust -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">2</span>
+          <span class="principle-title">🔍 Distrust by Default</span>
+          <p>Assume output is plausible but wrong until verified.</p>
+        </div>
+
+        <div class="glass-card fragment fade-up" style="margin-top: 0.6em;">
+          <p style="font-size: 0.65em; text-align: center; margin: 0;">
+            🎭 AI is <strong>confidently incorrect</strong>.<br>
+            Think of it as a <em>very keen but unreliable junior colleague</em> —<br>
+            enthusiastic, articulate, and sometimes completely wrong.
+          </p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.5em;">
+          <li class="fragment fade-up">It will <strong>invent</strong> function names, band names, and API calls that don't exist</li>
+          <li class="fragment fade-up">It will produce code that <strong>looks correct</strong> but has subtle logical errors</li>
+          <li class="fragment fade-up">It will present wrong answers with <strong>complete confidence</strong></li>
+        </ul>
+
+        <aside class="notes">
+          Principle 2: distrust by default. This is perhaps the most important principle. AI is confidently incorrect. It will generate code that looks perfectly reasonable, uses plausible-sounding function names, and produces output — but the output might be completely wrong. Think of it as a very keen but unreliable junior colleague: they'll hand you beautifully formatted work, explain it eloquently, and be 100% confident — even when it's wrong. Your job is to verify everything.
+        </aside>
+      </section>
+
+      <!-- S2-4: Principle 3 — Verify (Unit Testing) -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">3</span>
+          <span class="principle-title">✅ Verify with Tests</span>
+          <p>If you can't test it, you can't trust it.</p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.6em;">
+          <li class="fragment fade-up"><strong>Write unit tests</strong> — test individual functions with known inputs and expected outputs</li>
+          <li class="fragment fade-up"><strong>Check edge cases</strong> — empty collections, null geometries, single-pixel regions</li>
+          <li class="fragment fade-up"><strong>Validate against known answers</strong> — use published datasets, manual calculations, or sanity checks</li>
+          <li class="fragment fade-up"><strong>Ask AI to write tests too</strong> — then verify the tests themselves!</li>
+        </ul>
+
+        <div class="glass-card fragment fade-up" style="margin-top: 0.5em;">
+          <p style="font-size: 0.6em; text-align: center; margin: 0; color: var(--electric-lime);">
+            💡 Pro tip: Ask AI to generate the code <em>and</em> the tests separately,<br>
+            then check they agree. Inconsistencies reveal bugs.
+          </p>
+        </div>
+
+        <aside class="notes">
+          Principle 3: verify with tests. Unit testing isn't just good software practice — when working with AI, it's essential. Write tests with known inputs and expected outputs. Check edge cases: what happens with an empty image collection? A null geometry? A single pixel? Validate against published datasets or manual calculations. You can even ask AI to write the tests — but then you need to verify the tests themselves. The gold standard: generate code and tests separately, and check they agree.
+        </aside>
+      </section>
+
+      <!-- S2-5: Principle 4 — Prioritise Reporting & Interpretation -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">4</span>
+          <span class="principle-title">📖 Prioritise Reporting &amp; Interpretation</span>
+          <p>Don't just run code — understand what it does.</p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.6em;">
+          <li class="fragment fade-up"><strong>Can you explain every line?</strong> If not, you don't understand your analysis</li>
+          <li class="fragment fade-up"><strong>Document assumptions</strong> — why this reducer? Why this scale? Why this time period?</li>
+          <li class="fragment fade-up"><strong>Interpret results critically</strong> — does the output make ecological sense?</li>
+          <li class="fragment fade-up"><strong>Write for your future self</strong> — add comments that explain <em>why</em>, not just <em>what</em></li>
+        </ul>
+
+        <aside class="notes">
+          Principle 4: prioritise reporting and interpretation. It's tempting to just run AI-generated code and use the output. But if you can't explain every line of that code, you don't actually understand your analysis. And if you don't understand your analysis, you can't defend it in peer review. Document your assumptions: why did you choose that reducer? That scale? That time period? Interpret results critically — does this NDVI trend make ecological sense for this biome? And write comments that explain WHY you made choices, not just what the code does.
+        </aside>
+      </section>
+
+      <!-- S2-6: Principle 5 — Engineer Adversity -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">5</span>
+          <span class="principle-title">💥 Engineer Adversity</span>
+          <p>Deliberately try to break your AI-generated code.</p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.6em;">
+          <li class="fragment fade-up"><strong>Feed it bad inputs</strong> — wrong date formats, corrupted imagery, mismatched CRS</li>
+          <li class="fragment fade-up"><strong>Test edge cases</strong> — polar regions, date-line crossings, very large/small areas</li>
+          <li class="fragment fade-up"><strong>Try empty datasets</strong> — what happens when your filter returns zero images?</li>
+          <li class="fragment fade-up"><strong>If it breaks, it wasn't robust</strong> — and that's information you need <em>before</em> publication</li>
+        </ul>
+
+        <div class="glass-card fragment fade-up" style="margin-top: 0.5em;">
+          <p style="font-size: 0.6em; text-align: center; margin: 0;">
+            🎯 Think like a <strong>hostile reviewer</strong> — what would they try?
+          </p>
+        </div>
+
+        <aside class="notes">
+          Principle 5: engineer adversity. Don't just test the happy path — actively try to break your code. Feed it bad inputs: wrong date formats, corrupted imagery, mismatched coordinate systems. Test geographical edge cases: polar regions, the date line, tiny study areas, continent-scale areas. What happens when your image collection filter returns zero images? If the code breaks, that's information you need now — not after a reviewer finds the bug in your published results. Think like a hostile reviewer: what would they try?
+        </aside>
+      </section>
+
+      <!-- S2-7: Principle 6 — Maximise Transparency -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <div class="principle-card">
+          <span class="principle-number">6</span>
+          <span class="principle-title">🔓 Maximise Transparency</span>
+          <p>Document which parts are AI-generated and how.</p>
+        </div>
+
+        <ul style="font-size: 0.65em; margin-top: 0.6em;">
+          <li class="fragment fade-up"><strong>Log your prompts</strong> — save the conversations that generated your code</li>
+          <li class="fragment fade-up"><strong>Version your code</strong> — use Git; track the evolution from AI draft to final version</li>
+          <li class="fragment fade-up"><strong>Capture metadata</strong> — which model, which version, what date</li>
+          <li class="fragment fade-up"><strong>Be honest in methods</strong> — "Code was initially generated using [model] and subsequently reviewed, tested, and modified by the authors"</li>
+        </ul>
+
+        <aside class="notes">
+          Principle 6: maximise transparency. This is about scientific integrity. Log your prompts — save the conversations that generated your code. Use version control so reviewers can see how the code evolved from AI draft to final version. Record which model you used, what version, and when. And be honest in your methods section: 'Code was initially generated using [model] and subsequently reviewed, tested, and modified by the authors.' This isn't a weakness — it's good scientific practice. Transparency builds trust.
+        </aside>
+      </section>
+
+      <!-- S2-8: Summary — Visual Checklist -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>The Six Principles</h2>
+        <h3>Your checklist for responsible AI coding</h3>
+
+        <div class="checklist-grid" style="margin-top: 0.6em;">
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">🧠</span>
+            <div>
+              <span class="check-text">1. Treat as Intelligence</span><br>
+              <span class="check-sub">Give context, be specific</span>
+            </div>
+          </div>
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">🔍</span>
+            <div>
+              <span class="check-text">2. Distrust by Default</span><br>
+              <span class="check-sub">Assume wrong until verified</span>
+            </div>
+          </div>
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">✅</span>
+            <div>
+              <span class="check-text">3. Verify with Tests</span><br>
+              <span class="check-sub">Can't test it? Can't trust it</span>
+            </div>
+          </div>
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">📖</span>
+            <div>
+              <span class="check-text">4. Report & Interpret</span><br>
+              <span class="check-sub">Understand every line</span>
+            </div>
+          </div>
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">💥</span>
+            <div>
+              <span class="check-text">5. Engineer Adversity</span><br>
+              <span class="check-sub">Try to break it</span>
+            </div>
+          </div>
+          <div class="checklist-item fragment fade-up">
+            <span class="check-icon">🔓</span>
+            <div>
+              <span class="check-text">6. Maximise Transparency</span><br>
+              <span class="check-sub">Log, version, disclose</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Here are all six principles together as a checklist. You might want to take a photo of this slide — it's a useful reference to keep beside you when you're working with AI. Each principle builds on the others: treat AI as intelligent so you get better output, but distrust that output until you've verified it with tests, understood it well enough to interpret it, tried to break it, and documented the whole process transparently.
+        </aside>
+      </section>
+
+      <!-- S2-9: Real Examples — Common AI GEE Failures -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>⚠️ Real Failures</h2>
+        <h3>Common AI mistakes in Google Earth Engine</h3>
+
+        <div class="failure-card fragment fade-up">
+          <div class="failure-title">❌ Wrong Band Names</div>
+          AI uses <code>B4</code>, <code>B8</code> for Sentinel-2 surface reflectance — but the actual band names in the GEE collection are <code>SR_B4</code>, <code>SR_B8</code>. Code runs without error but produces garbage.
+        </div>
+
+        <div class="failure-card fragment fade-up">
+          <div class="failure-title">❌ Incorrect Scale</div>
+          AI defaults to <code>scale: 30</code> (Landsat) for Sentinel-2 analysis. Results are technically valid but scientifically wrong — resampled at the wrong resolution.
+        </div>
+
+        <div class="failure-card fragment fade-up">
+          <div class="failure-title">❌ Misapplied Reducers</div>
+          AI uses <code>ee.Reducer.mean()</code> where <code>ee.Reducer.median()</code> was needed for cloud-free compositing. Or applies a spatial reducer when a temporal reducer was intended.
+        </div>
+
+        <aside class="notes">
+          Let's make this concrete with real examples from Google Earth Engine. First: wrong band names. AI will confidently use B4 and B8 for Sentinel-2 — which are correct for the raw product but wrong for surface reflectance collections where they're prefixed with SR_. The code runs without error, but produces garbage values. Second: incorrect scale. AI often defaults to 30 metres — which is Landsat's resolution — when you're working with 10-metre Sentinel-2 data. Third: misapplied reducers. Using mean instead of median for compositing, or confusing spatial and temporal reducers. These are exactly the kinds of bugs that Principles 2 through 5 are designed to catch.
+        </aside>
+      </section>
+
+      <!-- S2-10: Why These Principles Matter for Conservation -->
+      <section data-background-color="#002110">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <h2>🌍 Why This Matters</h2>
+        <h3>For conservation science</h3>
+
+        <div class="glass-card fragment fade-up" style="margin-top: 0.6em;">
+          <p style="font-size: 0.68em; text-align: center; margin: 0;">
+            Policy decisions depend on <strong>correct analysis</strong>.<br>
+            A bug in your deforestation script isn't just a software problem —<br>
+            it's a <em>conservation</em> problem.
+          </p>
+        </div>
+
+        <ul style="font-size: 0.62em; margin-top: 0.5em;">
+          <li class="fragment fade-up">🌳 Habitat loss estimates feed into <strong>protected area designations</strong></li>
+          <li class="fragment fade-up">🦁 Species distribution models inform <strong>IUCN Red List assessments</strong></li>
+          <li class="fragment fade-up">🔥 Fire severity maps guide <strong>post-disaster response</strong> and funding allocation</li>
+          <li class="fragment fade-up">💰 Carbon stock estimates drive <strong>climate finance decisions</strong> worth millions</li>
+        </ul>
+
+        <p class="fragment fade-up" style="font-size: 0.6em; text-align: center; color: var(--electric-lime); margin-top: 0.5em;">
+          <strong>The stakes are too high for unchecked AI-generated code.</strong>
+        </p>
+
+        <aside class="notes">
+          And this is why we're spending time on principles before we touch code. In conservation science, the stakes are real. Habitat loss estimates feed directly into protected area designations. Species models inform Red List assessments. Fire maps guide disaster response. Carbon estimates drive climate finance worth millions. A subtle bug in your analysis code — one that AI introduced and you didn't catch — could lead to wrong conclusions, wrong policy decisions, and ultimately harm to the species and ecosystems we're trying to protect. That's why responsible AI coding isn't optional — it's essential.
+        </aside>
+      </section>
+
+      <!-- S2-11: Transition to Practical -->
+      <section class="transition-slide" data-background="linear-gradient(135deg, #002110 0%, #004d25 50%, #002110 100%)">
+        <img src="assets/zsl_logo.svg" class="slide-logo" alt="ZSL Logo">
+        <p style="font-size: 1em; color: var(--sapling);">Now let's put this</p>
+        <h2 style="color: var(--electric-lime); font-size: 2.2em;">into practice</h2>
+        <div class="arrow">→</div>
+        <p style="font-size: 0.7em; color: rgba(255,255,255,0.6);">Hands-on practical session</p>
+        <aside class="notes">
+          That's the framing complete. You now have a mental model for what AI can do and six principles for using it responsibly. In the next section, we'll put this into practice — you'll use AI to write real Earth Observation code, and apply these principles to verify and improve it.
+        </aside>
+      </section>
+
+    </div><!-- /.slides -->
+  </div><!-- /.reveal -->
+
+  <!-- Reveal.js 5.x from cdnjs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/markdown/markdown.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      // Presentation settings
+      hash: true,
+      slideNumber: 'c/t',
+      showSlideNumber: 'all',
+      center: true,
+      width: 1280,
+      height: 720,
+
+      // Transition
+      transition: 'fade',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+
+      // Navigation
+      controls: true,
+      controlsTutorial: false,
+      progress: true,
+      history: true,
+
+      // Fragments
+      fragments: true,
+
+      // Plugins
+      plugins: [RevealNotes, RevealMarkdown]
+    });
+  </script>
+</body>
+</html>

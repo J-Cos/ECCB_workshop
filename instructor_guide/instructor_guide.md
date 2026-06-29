@@ -35,7 +35,6 @@
 
 - [ ] Verify all 4 instructors have **GEE access** and a **working GCP project**
 - [ ] Run the **Colab notebook end-to-end** — verify all cells execute without error
-- [ ] Test the **Antigravity demo** with `messy_gee_script.py`
 - [ ] Print **vibe coding checklists** (one per attendee + 10 spares)
 - [ ] Test projector/screen for slides
 - [ ] Verify **Wi-Fi reliability** — GEE requires a stable internet connection
@@ -52,7 +51,6 @@
 
 - [ ] Test projector with slides — open `slides/index.html` in **Chrome**
 - [ ] Open **Colab notebook** in presenter's browser (logged in, authenticated)
-- [ ] Have `messy_gee_script.py` ready in **Antigravity**
 - [ ] Print **spare checklists** (if not already done)
 - [ ] Set up the **help signal system**:
   - 🟩 **Green sticky note** on laptop lid = "I'm fine"
@@ -74,7 +72,7 @@
 | 0:55 | 10 min | **WE3: Find the Bug** | All | Pair work — let students struggle, give **hints not answers** |
 | 1:05 | 10 min | **Exercise 1: Your Region** | All | Independent work — help with coordinate finding |
 | 1:15 | 10 min | **Exercise 2: Trend Challenge** | All | Competition — encourage, don't give answers |
-| 1:25 | 5 min | **State of the Art** | AB | Live Antigravity demo; others: watch audience, prepare for close |
+| 1:25 | 5 min | **State of the Art** | AB | Present what's coming next in AI + EO; others: prepare for close |
 
 > [!TIP]
 > Keep a visible timer on the projector (phone timer on screen, or a browser tab). The timing is tight — stay disciplined.
@@ -161,9 +159,9 @@
 
 ### State of the Art (1:25–1:30)
 
-- AB runs the Antigravity refactoring of `messy_gee_script.py`
+- AB presents what's coming next in AI-assisted EO — agentic coding, automated verification, multi-step workflows
 - Other instructors: **watch the audience** — note reactions, questions forming
-- Key point: *"This is where AI shines — tedious refactoring, not scientific decision-making."*
+- Key point: *"What you did today manually — prompting, debugging, verifying — is being automated. But the six principles still apply."*
 - Close with key takeaways, share links to materials, thank the audience
 
 
@@ -232,8 +230,7 @@
 |----------|----------|
 | **GEE is down** | Switch to **pre-computed outputs** (included in notebook as static images). Discuss the code conceptually — *"What would this code do?"* |
 | **Wi-Fi fails** | Same as above — use cached/pre-computed maps and charts. Consider mobile hotspot as backup. |
-| **Antigravity demo fails** | Use **fallback screenshots** in `demo/fallback_screenshots/`. Walk through the refactoring conceptually. |
-| **Running behind schedule** | Cut Exercise 2 and/or the trend challenge. Go straight to the demo. |
+| **Running behind schedule** | Cut Exercise 2 and/or the trend challenge. Skip straight to wrap-up. |
 | **Running ahead** | Extend Exercise 2 discussion, add Exercise 3 (bonus material), expand open Q&A. |
 | **Student medical emergency** | Follow venue emergency procedures. One instructor assists, others continue the session. |
 
@@ -260,7 +257,6 @@
 No internet → pre-computed outputs
 Behind schedule → cut Exercise 2
 GEE down → discuss code conceptually
-Demo fails → fallback screenshots
 ```
 
 ---
